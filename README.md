@@ -16,7 +16,7 @@ Simple command line secure tunneling tool.
 ## Build
 
 After setting Go environment values 
-([goenv.sh](https://github.com/diegohce/gosecure/blob/master/goenv.sh) might help), 
+(running [. ./goenv.sh](https://github.com/diegohce/gosecure/blob/master/goenv.sh) might help), 
 go to ```src``` directory and run from the command line:
 
 ```make```
