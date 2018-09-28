@@ -2,5 +2,9 @@
 
 ln -s /opt/gosecure/bin/gosecure /usr/local/bin/gosecure
 ln -s /opt/gosecure/gosecure /etc/init.d/gosecure
-ln -s /etc/init.d/gosecure /etc/rc2.d/S99gosecure
+#ln -s /etc/init.d/gosecure /etc/rc2.d/S99gosecure
+
+
+update-rc.d gosecure defaults
+
 
