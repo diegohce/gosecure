@@ -1,0 +1,23 @@
+#!/bin/bash
+
+. /etc/default/gosecure
+
+if [ $ENABLED == "0" ]; then
+	exit 0
+fi
+
+PIDS_DIR="/var/run/gosecure"
+LOGS_DIR="/var/log/gosecure"
+BINARY="/opt/gosecure/bin/gosecure"
+
+mkdir -p $PIDS_DIR
+mkdir -p $LOGS_DIR
+
+for conf in $(ls /etc/gosecure/*.conf)
+do
+	. $conf
+	$BINARY -cert $CERT -key $KEY -local $LOCAL -remote $REMOTE >> "$LOGS_DIR/$NAME.log" 2>&1 &
+	echo $! > "$PIDS_DIR/$NAME.pid"
+done
+
+

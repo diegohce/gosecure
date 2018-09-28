@@ -1,0 +1,4 @@
+#!/bin/bash
+
+rm -f /usr/local/bin/gosecure /etc/init.d/gosecure /etc/rc2.d/S99gosecure
+
