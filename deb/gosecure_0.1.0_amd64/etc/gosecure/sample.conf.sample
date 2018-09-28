@@ -1,3 +1,5 @@
+NAME=sample_name
+
 CERT=/etc/ssl/localcerts/example.com.crt
 KEY=/etc/ssl/localcerts/example.com.key
 
