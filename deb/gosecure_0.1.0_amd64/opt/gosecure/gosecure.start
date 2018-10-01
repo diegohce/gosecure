@@ -16,8 +16,35 @@ mkdir -p $LOGS_DIR
 for conf in $(ls /etc/gosecure/*.conf)
 do
 	. $conf
-	$BINARY -cert $CERT -key $KEY -local $LOCAL -remote $REMOTE >> "$LOGS_DIR/$NAME.log" 2>&1 &
-	echo $! > "$PIDS_DIR/$NAME.pid"
+
+	err="0"	
+	if [ -z "$NAME" ]; then
+		echo "NAME empty in $conf"
+		err="1"	
+	fi
+	if [ -z "$CERT" ]; then
+		echo "CERT empty in $conf"
+		err="1"	
+	fi
+	if [ -z "$KEY" ]; then
+		echo "KEY empty in $conf"
+		err="1"	
+	fi
+	if [ -z "$LOCAL" ]; then
+		echo "LOCAL empty in $conf"
+		err="1"	
+	fi
+	if [ -z "$REMOTE" ]; then
+		echo "REMOTE empty in $conf"
+		err="1"	
+	fi
+
+	if [ $err == "0" ]; then
+		$BINARY -cert $CERT -key $KEY -local $LOCAL -remote $REMOTE >> "$LOGS_DIR/$NAME.log" 2>&1 &
+		echo $! > "$PIDS_DIR/$NAME.pid"
+	fi
+
+	unset -v NAME CERT KEY LOCAL REMOTE
 done
 
 

@@ -16,13 +16,12 @@
 
 
 do_start() {
-	/opt/gosecure/gosecure.start
+	/opt/gosecure/gosecure.start >> /var/log/gosecure.log 2>&1
 	sleep 1
 }
 
 do_stop() {
-
-	/opt/gosecure/gosecure.stop
+	/opt/gosecure/gosecure.stop >> /var/log/gosecure.log 2>&1
 	sleep 1
 }
 
