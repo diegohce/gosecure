@@ -3,7 +3,7 @@
 [![Github all releases](https://img.shields.io/github/downloads/diegohce/gosecure/total.svg)](https://github.com/diegohce/gosecure/releases/)
 [![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://github.com/diegohce/gosecure/blob/master/LICENSE)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/diegohce/gosecure/graphs/commit-activity)
-[![HitCount](http://hits.dwyl.io/diegohce/badges.svg)](http://hits.dwyl.io/diegohce/badges)
+[![HitCount](http://hits.dwyl.io/diegohce/gosecure.svg)](http://hits.dwyl.io/diegohce/gosecure)
 
 # gosecure 
 Simple command line secure tunneling tool.
