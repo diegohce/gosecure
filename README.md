@@ -1,3 +1,5 @@
+[![Go Report Card](https://goreportcard.com/badge/github.com/diegohce/gosecure)](https://goreportcard.com/report/github.com/diegohce/gosecure)
+
 # gosecure 
 Simple command line secure tunneling tool.
 
