@@ -11,6 +11,7 @@ import (
 	"sync"
 )
 
+//Command line arguments
 type Config struct {
 	certfile string
 	keyfile  string
@@ -20,9 +21,12 @@ type Config struct {
 
 //This three values are changed from Makefile
 var (
-	BINARY_NAME= "gosecure"   //Executable binary name
-	VERSION = "v0.0.1"        //Running version
-	VERSION_NAME = "Tunelito" //Version code name
+//Executable binary name
+	BINARY_NAME= "gosecure"
+//Running version
+	VERSION = "v0.0.1"
+//Version code name
+	VERSION_NAME = "Tunelito"
 )
 
 var CONFIG Config
