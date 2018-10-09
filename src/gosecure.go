@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 	"os"
-    "log"
-    "crypto/tls"
-    "net"
+	"log"
+	"crypto/tls"
+	"net"
 	"io"
 	"flag"
 	"sync"
@@ -18,10 +18,11 @@ type Config struct {
 	remote   string
 }
 
+//This three values are changed from Makefile
 var (
-	BINARY_NAME= "gosecure"
-	VERSION = "v0.0.1"
-	VERSION_NAME = "Tunelito"
+	BINARY_NAME= "gosecure"   //Executable binary name
+	VERSION = "v0.0.1"        //Running version
+	VERSION_NAME = "Tunelito" //Version code name
 )
 
 var CONFIG Config
