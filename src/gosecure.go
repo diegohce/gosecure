@@ -1,13 +1,13 @@
 package main
 
 import (
-	"fmt"
-	"os"
-	"log"
 	"crypto/tls"
-	"net"
-	"io"
 	"flag"
+	"fmt"
+	"io"
+	"log"
+	"net"
+	"os"
 	"sync"
 )
 
@@ -22,13 +22,13 @@ type Config struct {
 //This three values are changed from Makefile
 var (
 
-// BINARY_NAME : Executable binary name
-	BINARY_NAME= "gosecure"
+	// BINARY_NAME : Executable binary name
+	BINARY_NAME = "gosecure"
 
-// VERSION : Running version
+	// VERSION : Running version
 	VERSION = "v0.0.1"
 
-// VERSION_NAME : Version code name
+	// VERSION_NAME : Version code name
 	VERSION_NAME = "Tunelito"
 )
 
@@ -36,13 +36,12 @@ var (
 var CONFIG Config
 
 func main() {
-    //log.SetFlags(log.Lshortfile)
-
+	//log.SetFlags(log.Lshortfile)
 
 	flag.StringVar(&CONFIG.certfile, "cert", "", "Certificate file")
-	flag.StringVar(&CONFIG.keyfile , "key", "", "Key file")
-	flag.StringVar(&CONFIG.local   , "local", "", "Where to listen on this machine [ip_address]:port")
-	flag.StringVar(&CONFIG.remote  , "remote", "", "Where to connect to {ip_address | hostname}:port")
+	flag.StringVar(&CONFIG.keyfile, "key", "", "Key file")
+	flag.StringVar(&CONFIG.local, "local", "", "Where to listen on this machine [ip_address]:port")
+	flag.StringVar(&CONFIG.remote, "remote", "", "Where to connect to {ip_address | hostname}:port")
 
 	flag.Parse()
 
@@ -54,32 +53,32 @@ func main() {
 
 	log.Printf("Starting %s v%s (%s)\n", BINARY_NAME, VERSION, VERSION_NAME)
 
-    cer, err := tls.LoadX509KeyPair(CONFIG.certfile, CONFIG.keyfile)
-    if err != nil {
-        log.Println(err)
-        return
-    }
+	cer, err := tls.LoadX509KeyPair(CONFIG.certfile, CONFIG.keyfile)
+	if err != nil {
+		log.Println(err)
+		return
+	}
 
-    config := &tls.Config{Certificates: []tls.Certificate{cer}}
-    ln, err := tls.Listen("tcp", CONFIG.local, config)
-    if err != nil {
-        log.Println(err)
-        return
-    }
-    defer ln.Close()
+	config := &tls.Config{Certificates: []tls.Certificate{cer}}
+	ln, err := tls.Listen("tcp", CONFIG.local, config)
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	defer ln.Close()
 
-    for {
-        conn, err := ln.Accept()
-        if err != nil {
-            log.Println(err)
-            continue
-        }
-        go handleConnection(conn)
-    }
+	for {
+		conn, err := ln.Accept()
+		if err != nil {
+			log.Println(err)
+			continue
+		}
+		go handleConnection(conn)
+	}
 }
 
 func handleConnection(iconn net.Conn) {
-    defer iconn.Close()
+	defer iconn.Close()
 
 	logprefix := fmt.Sprintf("%s -> %s ::", iconn.RemoteAddr(), CONFIG.remote)
 
@@ -96,7 +95,6 @@ func handleConnection(iconn net.Conn) {
 
 	log.Println(logprefix, "Connected to", CONFIG.remote)
 
-
 	wg := &sync.WaitGroup{}
 	wg.Add(2)
 
@@ -111,7 +109,6 @@ func handleConnection(iconn net.Conn) {
 
 }
 
-
 func cp(from, to net.Conn, wg *sync.WaitGroup) {
 	defer wg.Done()
 
@@ -124,7 +121,5 @@ func cp(from, to net.Conn, wg *sync.WaitGroup) {
 	}
 	log.Println(logprefix, "::", bc, "bytes")
 	to.Close()
-	log.Println(logprefix+"::Exiting cp")
+	log.Println(logprefix + "::Exiting cp")
 }
-
-
