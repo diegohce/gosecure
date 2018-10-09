@@ -21,16 +21,18 @@ type Config struct {
 
 //This three values are changed from Makefile
 var (
+
 // BINARY_NAME : Executable binary name
 	BINARY_NAME= "gosecure"
 
 // VERSION : Running version
 	VERSION = "v0.0.1"
 
-//VERSION_NAME : Version code name
+// VERSION_NAME : Version code name
 	VERSION_NAME = "Tunelito"
 )
 
+// CONFIG : Command line arguments instance
 var CONFIG Config
 
 func main() {
