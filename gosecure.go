@@ -35,6 +35,10 @@ var (
 // CONFIG : Command line arguments instance
 var CONFIG Config
 
+func init() {
+    os.Setenv("GODEBUG", os.Getenv("GODEBUG")+",tls13=1")
+}
+
 func main() {
 	//log.SetFlags(log.Lshortfile)
 
@@ -59,7 +63,10 @@ func main() {
 		return
 	}
 
-	config := &tls.Config{Certificates: []tls.Certificate{cer}}
+	config := &tls.Config{
+		Certificates: []tls.Certificate{cer},
+		MinVersion:   tls.VersionTLS12,
+	}
 	ln, err := tls.Listen("tcp", CONFIG.local, config)
 	if err != nil {
 		log.Println(err)

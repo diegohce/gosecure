@@ -1,6 +1,6 @@
 GOOS=linux
 GOFILES=gosecure.go
-VERSION=0.1.0
+VERSION=0.1.1
 VERSION_NAME=Ugly Logger
 BINARY_NAME=gosecure
 

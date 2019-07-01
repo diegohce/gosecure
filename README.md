@@ -10,6 +10,9 @@
 # gosecure 
 Simple command line secure tunneling tool.
 
+`gosecure` supports tls >= 1.2 (yes, 1.3 too!)
+
+
 ## Usage
 ```
   -cert string
