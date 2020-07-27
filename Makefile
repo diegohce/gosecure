@@ -10,7 +10,6 @@ ifeq ($(GOOS), windows)
 	EXE=.exe
 endif
 
-#all: deps build
 all: build
 
 build:
@@ -22,6 +21,9 @@ run:
 .PHONY clean:
 	@rm -f $(BINARY_NAME) $(BINARY_NAME).exe
 
-#deps:
-#	@go get github.com/julienschmidt/httprouter
-#	@go get github.com/creamdog/gonfig
+deb: build
+	cp man/gosecure.1 deb/$(BINARY_NAME)_$(VERSION)_amd64/usr/share/man/man1 && \
+	cp $(BINARY_NAME) deb/$(BINARY_NAME)_$(VERSION)_amd64/opt/gosecure/bin && \
+	cd deb && \
+	dpkg-deb --build $(BINARY_NAME)_$(VERSION)_amd64 ; \
+	cd -
