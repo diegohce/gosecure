@@ -1,0 +1,8 @@
+NAME=sample_name
+
+CERT=/etc/ssl/localcerts/example.com.crt
+KEY=/etc/ssl/localcerts/example.com.key
+
+LOCAL=:443
+REMOTE=10.0.3.25:80
+

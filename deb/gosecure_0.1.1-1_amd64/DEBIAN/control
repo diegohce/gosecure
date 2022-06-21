@@ -1,0 +1,7 @@
+Package: gosecure
+Architecture: amd64
+Maintainer: diego.cena@gmail.com
+Priority: optional
+Version: 0.1.1-1
+Description: Simple secure SSL tunneling
+ See https://github.com/diegohce/gosecure/blob/master/README.md on how to use it.

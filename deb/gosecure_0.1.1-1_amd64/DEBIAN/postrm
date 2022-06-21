@@ -1,0 +1,8 @@
+#!/bin/bash
+
+#rm -f /usr/local/bin/gosecure /etc/init.d/gosecure /etc/rc2.d/S99gosecure
+
+update-rc.d gosecure remove
+
+rm -f /usr/local/bin/gosecure /etc/init.d/gosecure 
+
