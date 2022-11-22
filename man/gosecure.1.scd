@@ -45,7 +45,7 @@ KEY		Same as *-key*
 
 ## COMMAND LINE
 
-\# gosecure -cert example.com.crt -key example.com.key -local :443 -remote 10.0.3.25:80
+\# gosecure -min-tls 1.3 -cert example.com.crt -key example.com.key -local :443 -remote 10.0.3.25:80
 
 ## CONFIG FILE
 

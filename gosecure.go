@@ -17,9 +17,10 @@ type Config struct {
 	keyfile  string
 	local    string
 	remote   string
+	mintls   string
 }
 
-//This three values are changed from Makefile
+// This three values are changed from Makefile
 var (
 
 	// BINARY_NAME : Executable binary name
@@ -36,7 +37,7 @@ var (
 var CONFIG Config
 
 func init() {
-    os.Setenv("GODEBUG", os.Getenv("GODEBUG")+",tls13=1")
+	os.Setenv("GODEBUG", os.Getenv("GODEBUG")+",tls13=1")
 }
 
 func main() {
@@ -46,6 +47,7 @@ func main() {
 	flag.StringVar(&CONFIG.keyfile, "key", "", "Key file")
 	flag.StringVar(&CONFIG.local, "local", "", "Where to listen on this machine [ip_address]:port")
 	flag.StringVar(&CONFIG.remote, "remote", "", "Where to connect to {ip_address | hostname}:port")
+	flag.StringVar(&CONFIG.mintls, "min-tls", "1.3", "Minimum TLS version accepted")
 
 	flag.Parse()
 
@@ -53,6 +55,20 @@ func main() {
 		fmt.Printf("%s v%s (%s)\n\n", BINARY_NAME, VERSION, VERSION_NAME)
 		flag.PrintDefaults()
 		os.Exit(1)
+	}
+
+	mintls := tls.VersionTLS13
+	switch CONFIG.mintls {
+	case "1.0":
+		mintls = tls.VersionTLS10
+	case "1.1":
+		mintls = tls.VersionTLS11
+
+	case "1.2":
+		mintls = tls.VersionTLS12
+
+	default:
+		mintls = tls.VersionTLS13
 	}
 
 	log.Printf("Starting %s v%s (%s)\n", BINARY_NAME, VERSION, VERSION_NAME)
@@ -65,7 +81,7 @@ func main() {
 
 	config := &tls.Config{
 		Certificates: []tls.Certificate{cer},
-		MinVersion:   tls.VersionTLS12,
+		MinVersion:   uint16(mintls),
 	}
 	ln, err := tls.Listen("tcp", CONFIG.local, config)
 	if err != nil {
