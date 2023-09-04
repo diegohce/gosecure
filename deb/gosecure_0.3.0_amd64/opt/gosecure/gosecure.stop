@@ -1,0 +1,12 @@
+#!/bin/bash
+
+PIDS_DIR="/var/run/gosecure"
+
+for pidfile in $(ls $PIDS_DIR/*.pid)
+do
+	pid=$(cat $pidfile)
+	kill -9 $pid
+	rm -fr "$pidfile"
+done
+
+

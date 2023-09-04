@@ -1,0 +1,6 @@
+#!/bin/bash
+
+service gosecure stop
+sleep 1
+
+
