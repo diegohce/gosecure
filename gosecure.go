@@ -8,6 +8,7 @@ import (
 	"log"
 	"net"
 	"os"
+	"strings"
 	"sync"
 )
 
@@ -18,6 +19,7 @@ type Config struct {
 	local    string
 	remote   string
 	mintls   string
+	alpn     string
 }
 
 // This three values are changed from Makefile
@@ -48,6 +50,7 @@ func main() {
 	flag.StringVar(&CONFIG.local, "local", "", "Where to listen on this machine [ip_address]:port")
 	flag.StringVar(&CONFIG.remote, "remote", "", "Where to connect to {ip_address | hostname}:port")
 	flag.StringVar(&CONFIG.mintls, "min-tls", "1.3", "Minimum TLS version accepted")
+	flag.StringVar(&CONFIG.alpn, "alpn", "", "Comma-separated list of supported application level protocols")
 
 	flag.Parse()
 
@@ -82,6 +85,7 @@ func main() {
 	config := &tls.Config{
 		Certificates: []tls.Certificate{cer},
 		MinVersion:   uint16(mintls),
+		NextProtos:   strings.Split(CONFIG.alpn, ","),
 	}
 	ln, err := tls.Listen("tcp", CONFIG.local, config)
 	if err != nil {

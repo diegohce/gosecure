@@ -15,14 +15,16 @@ Simple command line secure tunneling tool.
 
 ## Usage
 ```
+  -alpn string
+    	Comma-separated list of supported application level protocols
   -cert string
     	Certificate file
   -key string
     	Key file
   -local string
     	Where to listen on this machine [ip_address]:port
-  -min-tls
-      Minimum TLS version (default: 1.3)
+  -min-tls string
+    	Minimum TLS version accepted (default "1.3")
   -remote string
     	Where to connect to {ip_address | hostname}:port
 ```
