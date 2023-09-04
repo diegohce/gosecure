@@ -21,6 +21,8 @@ Use /etc/gosecure/sample.conf.sample as a template for your configuration files.
 
 # COMMAND LINE OPTIONS
 
+\-alpn Comma-separated list of supported application level protocols
+
 \-cert	Certificate file
 
 \-key		Key file

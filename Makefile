@@ -1,7 +1,7 @@
 GOOS=linux
 GOFILES=gosecure.go
-VERSION=0.1.1-1
-VERSION_NAME=Ugly Logger
+VERSION=0.3.0
+VERSION_NAME=Sigrid
 BINARY_NAME=gosecure
 
 LDFLAGS=-ldflags '-X main.VERSION=$(VERSION) -X "main.VERSION_NAME=$(VERSION_NAME)"'
