@@ -1,8 +1,8 @@
 GOOS=linux
 GOFILES=gosecure.go
-VERSION=0.3.0
-VERSION_NAME=Sigrid
-BINARY_NAME=gosecure
+VERSION=1.0.0
+VERSION_NAME=Horatio
+BINARY_NAME=gosecure$(VERSION)
 
 LDFLAGS=-ldflags '-X main.VERSION=$(VERSION) -X "main.VERSION_NAME=$(VERSION_NAME)"'
 
