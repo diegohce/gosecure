@@ -36,7 +36,10 @@ var (
 )
 
 // CONFIG : Command line arguments instance
-var CONFIG Config
+var (
+	CONFIG    Config
+	tlsConfig *tls.Config
+)
 
 func init() {
 	os.Setenv("GODEBUG", os.Getenv("GODEBUG")+",tls13=1")
@@ -82,12 +85,13 @@ func main() {
 		return
 	}
 
-	config := &tls.Config{
+	tlsConfig = &tls.Config{
 		Certificates: []tls.Certificate{cer},
 		MinVersion:   uint16(mintls),
 		NextProtos:   strings.Split(CONFIG.alpn, ","),
 	}
-	ln, err := tls.Listen("tcp", CONFIG.local, config)
+	//ln, err := tls.Listen("tcp", CONFIG.local, tlsConfig)
+	ln, err := net.Listen("tcp", CONFIG.local)
 	if err != nil {
 		log.Println(err)
 		return
@@ -104,13 +108,13 @@ func main() {
 	}
 }
 
-func handleConnection(iconn net.Conn) {
-	defer iconn.Close()
+func handleConnection(c net.Conn) {
+	var iconn net.Conn
 
-	logprefix := fmt.Sprintf("%s -> %s ::", iconn.RemoteAddr(), CONFIG.remote)
+	defer c.Close()
 
+	logprefix := fmt.Sprintf("%s -> %s ::", c.RemoteAddr(), CONFIG.remote)
 	log.Println(logprefix, "Starting tunnel")
-
 	log.Println(logprefix, "Connecting to", CONFIG.remote)
 
 	oconn, err := net.Dial("tcp", CONFIG.remote)
@@ -119,6 +123,17 @@ func handleConnection(iconn net.Conn) {
 		return
 	}
 	defer oconn.Close()
+
+	tlsConn := tls.Server(c, tlsConfig)
+	err = tlsConn.Handshake()
+	if err != nil {
+		if tlsErr, ok := err.(tls.RecordHeaderError); ok {
+			oconn.Write(tlsErr.RecordHeader[:])
+		}
+		iconn = c
+	} else {
+		iconn = tlsConn
+	}
 
 	log.Println(logprefix, "Connected to", CONFIG.remote)
 
