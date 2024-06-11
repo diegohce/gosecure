@@ -13,7 +13,7 @@ endif
 all: build
 
 build:
-	@GOOS=$(GOOS) go build -o $(BINARY_NAME)$(EXE) $(LDFLAGS) $(GOFILES)
+	@GOOS=$(GOOS) CGO_ENABLED=0 go build -o $(BINARY_NAME)$(EXE) $(LDFLAGS) $(GOFILES)
 
 run:
 	@GOOS=$(GOOS) go run $(LDFLAGS) $(GOFILES)

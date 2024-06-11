@@ -10,6 +10,8 @@ import (
 	"os"
 	"strings"
 	"sync"
+
+	_ "gosecure/internal/logger"
 )
 
 // Config : Command line arguments
@@ -128,9 +130,11 @@ func handleConnection(c net.Conn) {
 	err = tlsConn.Handshake()
 	if err != nil {
 		if tlsErr, ok := err.(tls.RecordHeaderError); ok {
-			oconn.Write(tlsErr.RecordHeader[:])
+			//oconn.Write(tlsErr.RecordHeader[:])
+			iconn = tlsErr.Conn
+		} else {
+			log.Println(logprefix, "tls error:", tlsErr.Error())
 		}
-		iconn = c
 	} else {
 		iconn = tlsConn
 	}
